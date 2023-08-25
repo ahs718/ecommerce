@@ -11,11 +11,11 @@ import { Separator } from "@/components/ui/separator";
 import { ApiList } from "@/components/ui/api-list";
 import { SizeColumn, columns } from "./columns";
 
-interface SizeClientProps {
+interface SizesClientProps {
   data: SizeColumn[];
 }
 
-export const SizeClient: React.FC<SizeClientProps> = ({ data }) => {
+export const SizesClient: React.FC<SizesClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
 
