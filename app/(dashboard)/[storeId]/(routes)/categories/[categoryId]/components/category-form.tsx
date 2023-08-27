@@ -32,7 +32,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().min(2),
   billboardId: z.string().min(1),
 });
 
@@ -53,9 +53,9 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit Category" : "Create Category";
-  const description = initialData ? "Edit a category" : "Add a new category";
-  const toastMessage = initialData ? "Category updated!" : "Category created!";
+  const title = initialData ? "Edit category" : "Create category";
+  const description = initialData ? "Edit a category." : "Add a new category";
+  const toastMessage = initialData ? "Category updated." : "Category created.";
   const action = initialData ? "Save changes" : "Create";
 
   const form = useForm<CategoryFormValues>({
@@ -80,7 +80,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       router.refresh();
       router.push(`/${params.storeId}/categories`);
       toast.success(toastMessage);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
@@ -95,8 +95,8 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
       );
       router.refresh();
       router.push(`/${params.storeId}/categories`);
-      toast.success("Category deleted!");
-    } catch (error) {
+      toast.success("Category deleted.");
+    } catch (error: any) {
       toast.error(
         "Make sure you removed all products using this category first."
       );
@@ -120,7 +120,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
           <Button
             disabled={loading}
             variant="destructive"
-            size="icon"
+            size="sm"
             onClick={() => setOpen(true)}
           >
             <Trash className="h-4 w-4" />
@@ -133,7 +133,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          <div className="grid grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="name"

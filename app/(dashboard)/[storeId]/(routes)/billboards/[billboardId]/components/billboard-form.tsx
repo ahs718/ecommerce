@@ -45,11 +45,11 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit Billboard" : "Create Billboard";
-  const description = initialData ? "Edit a billboard" : "Add a new billboard";
+  const title = initialData ? "Edit billboard" : "Create billboard";
+  const description = initialData ? "Edit a billboard." : "Add a new billboard";
   const toastMessage = initialData
-    ? "Billboard updated!"
-    : "Billboard created!";
+    ? "Billboard updated."
+    : "Billboard created.";
   const action = initialData ? "Save changes" : "Create";
 
   const form = useForm<BillboardFormValues>({
@@ -74,7 +74,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
@@ -89,8 +89,8 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       );
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
-      toast.success("Billboard deleted!");
-    } catch (error) {
+      toast.success("Billboard deleted.");
+    } catch (error: any) {
       toast.error(
         "Make sure you removed all categories using this billboard first."
       );
@@ -114,7 +114,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
           <Button
             disabled={loading}
             variant="destructive"
-            size="icon"
+            size="sm"
             onClick={() => setOpen(true)}
           >
             <Trash className="h-4 w-4" />
@@ -138,14 +138,14 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                     value={field.value ? [field.value] : []}
                     disabled={loading}
                     onChange={(url) => field.onChange(url)}
-                    onRemove={(url) => field.onChange("")}
+                    onRemove={() => field.onChange("")}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="label"

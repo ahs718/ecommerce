@@ -25,9 +25,9 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
 const formSchema = z.object({
-  name: z.string().min(1),
-  value: z.string().min(4).regex(/^#/, {
-    message: "String must be a valid hex code.",
+  name: z.string().min(2),
+  value: z.string().min(4).max(9).regex(/^#/, {
+    message: "String must be a valid hex code",
   }),
 });
 
@@ -44,16 +44,15 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit Color" : "Create Color";
-  const description = initialData ? "Edit a color" : "Add a new color";
-  const toastMessage = initialData ? "Color updated!" : "Color created!";
+  const title = initialData ? "Edit color" : "Create color";
+  const description = initialData ? "Edit a color." : "Add a new color";
+  const toastMessage = initialData ? "Color updated." : "Color created.";
   const action = initialData ? "Save changes" : "Create";
 
   const form = useForm<ColorFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: "",
-      value: "",
     },
   });
 
@@ -71,7 +70,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
       router.refresh();
       router.push(`/${params.storeId}/colors`);
       toast.success(toastMessage);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
@@ -84,8 +83,8 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
       await axios.delete(`/api/${params.storeId}/colors/${params.colorId}`);
       router.refresh();
       router.push(`/${params.storeId}/colors`);
-      toast.success("Color deleted!");
-    } catch (error) {
+      toast.success("Color deleted.");
+    } catch (error: any) {
       toast.error("Make sure you removed all products using this color first.");
     } finally {
       setLoading(false);
@@ -107,7 +106,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
           <Button
             disabled={loading}
             variant="destructive"
-            size="icon"
+            size="sm"
             onClick={() => setOpen(true)}
           >
             <Trash className="h-4 w-4" />
@@ -120,7 +119,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          <div className="grid grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="name"

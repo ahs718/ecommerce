@@ -1,9 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 
 export function MainNav({
   className,
@@ -56,7 +56,10 @@ export function MainNav({
   ];
 
   return (
-    <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>
+    <nav
+      className={cn("flex items-center space-x-4 lg:space-x-6", className)}
+      {...props}
+    >
       {routes.map((route) => (
         <Link
           key={route.href}

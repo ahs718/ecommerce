@@ -42,16 +42,15 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit Size" : "Create Size";
-  const description = initialData ? "Edit a size" : "Add a new size";
-  const toastMessage = initialData ? "Size updated!" : "Size created!";
+  const title = initialData ? "Edit size" : "Create size";
+  const description = initialData ? "Edit a size." : "Add a new size";
+  const toastMessage = initialData ? "Size updated." : "Size created.";
   const action = initialData ? "Save changes" : "Create";
 
   const form = useForm<SizeFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       name: "",
-      value: "",
     },
   });
 
@@ -69,7 +68,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
       router.refresh();
       router.push(`/${params.storeId}/sizes`);
       toast.success(toastMessage);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
@@ -82,8 +81,8 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
       await axios.delete(`/api/${params.storeId}/sizes/${params.sizeId}`);
       router.refresh();
       router.push(`/${params.storeId}/sizes`);
-      toast.success("Size deleted!");
-    } catch (error) {
+      toast.success("Size deleted.");
+    } catch (error: any) {
       toast.error("Make sure you removed all products using this size first.");
     } finally {
       setLoading(false);
@@ -105,7 +104,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
           <Button
             disabled={loading}
             variant="destructive"
-            size="icon"
+            size="sm"
             onClick={() => setOpen(true)}
           >
             <Trash className="h-4 w-4" />
@@ -118,7 +117,7 @@ export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          <div className="grid grid-cols-3 gap-8">
+          <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="name"

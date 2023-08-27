@@ -48,7 +48,11 @@ const formSchema = z.object({
 type ProductFormValues = z.infer<typeof formSchema>;
 
 interface ProductFormProps {
-  initialData: (Product & { images: Image[] }) | null;
+  initialData:
+    | (Product & {
+        images: Image[];
+      })
+    | null;
   categories: Category[];
   colors: Color[];
   sizes: Size[];
@@ -57,8 +61,8 @@ interface ProductFormProps {
 export const ProductForm: React.FC<ProductFormProps> = ({
   initialData,
   categories,
-  colors,
   sizes,
+  colors,
 }) => {
   const params = useParams();
   const router = useRouter();
@@ -66,28 +70,30 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const title = initialData ? "Edit Product" : "Create Product";
-  const description = initialData ? "Edit a product" : "Add a new product";
-  const toastMessage = initialData ? "Product updated!" : "Product created!";
+  const title = initialData ? "Edit product" : "Create product";
+  const description = initialData ? "Edit a product." : "Add a new product";
+  const toastMessage = initialData ? "Product updated." : "Product created.";
   const action = initialData ? "Save changes" : "Create";
+
+  const defaultValues = initialData
+    ? {
+        ...initialData,
+        price: parseFloat(String(initialData?.price)),
+      }
+    : {
+        name: "",
+        images: [],
+        price: 0,
+        categoryId: "",
+        colorId: "",
+        sizeId: "",
+        isFeatured: false,
+        isArchived: false,
+      };
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData
-      ? {
-          ...initialData,
-          price: parseFloat(String(initialData?.price)),
-        }
-      : {
-          name: "",
-          images: [],
-          price: 0,
-          categoryId: "",
-          colorId: "",
-          sizeId: "",
-          isFeatured: false,
-          isArchived: false,
-        },
+    defaultValues,
   });
 
   const onSubmit = async (data: ProductFormValues) => {
@@ -104,7 +110,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       router.refresh();
       router.push(`/${params.storeId}/products`);
       toast.success(toastMessage);
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
@@ -117,8 +123,8 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
       router.refresh();
       router.push(`/${params.storeId}/products`);
-      toast.success("Product deleted!");
-    } catch (error) {
+      toast.success("Product deleted.");
+    } catch (error: any) {
       toast.error("Something went wrong.");
     } finally {
       setLoading(false);
@@ -128,21 +134,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
   return (
     <>
-      {/* Delete confirmation window */}
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={onDelete}
         loading={loading}
       />
-
       <div className="flex items-center justify-between">
         <Heading title={title} description={description} />
         {initialData && (
           <Button
             disabled={loading}
             variant="destructive"
-            size="icon"
+            size="sm"
             onClick={() => setOpen(true)}
           >
             <Trash className="h-4 w-4" />
@@ -155,7 +159,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 w-full"
         >
-          {/* Images form field */}
           <FormField
             control={form.control}
             name="images"
@@ -180,8 +183,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               </FormItem>
             )}
           />
-          <div className="grid grid-cols-3 gap-8">
-            {/* Name form field */}
+          <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
               name="name"
@@ -199,8 +201,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-
-            {/* Price form field */}
             <FormField
               control={form.control}
               name="price"
@@ -211,7 +211,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     <Input
                       type="number"
                       disabled={loading}
-                      placeholder="0.00"
+                      placeholder="9.99"
                       {...field}
                     />
                   </FormControl>
@@ -219,8 +219,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-
-            {/* Category form field */}
             <FormField
               control={form.control}
               name="categoryId"
@@ -253,8 +251,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-
-            {/* Size form field */}
             <FormField
               control={form.control}
               name="sizeId"
@@ -287,8 +283,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-
-            {/* Color form field */}
             <FormField
               control={form.control}
               name="colorId"
@@ -321,8 +315,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 </FormItem>
               )}
             />
-
-            {/* Featured form field */}
             <FormField
               control={form.control}
               name="isFeatured"
@@ -331,20 +323,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <FormControl>
                     <Checkbox
                       checked={field.value}
+                      // @ts-ignore
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>Featured</FormLabel>
                     <FormDescription>
-                      This product will appear on the home page.
+                      This product will appear on the home page
                     </FormDescription>
                   </div>
                 </FormItem>
               )}
             />
-
-            {/* Archived form field */}
             <FormField
               control={form.control}
               name="isArchived"
@@ -353,6 +344,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   <FormControl>
                     <Checkbox
                       checked={field.value}
+                      // @ts-ignore
                       onCheckedChange={field.onChange}
                     />
                   </FormControl>

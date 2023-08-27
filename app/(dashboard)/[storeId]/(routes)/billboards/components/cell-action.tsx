@@ -25,29 +25,28 @@ interface CellActionProps {
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
-
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const onCopy = (id: string) => {
-    navigator.clipboard.writeText(id);
-    toast.success("Billboard id copied to the clipboard!");
-  };
-
-  const onDelete = async () => {
+  const onConfirm = async () => {
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      toast.success("Billboard deleted.");
       router.refresh();
-      toast.success("Billboard deleted!");
     } catch (error) {
       toast.error(
         "Make sure you removed all categories using this billboard first."
       );
     } finally {
-      setLoading(false);
       setOpen(false);
+      setLoading(false);
     }
+  };
+
+  const onCopy = (id: string) => {
+    navigator.clipboard.writeText(id);
+    toast.success("Billboard ID copied to clipboard.");
   };
 
   return (
@@ -55,7 +54,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={onDelete}
+        onConfirm={onConfirm}
         loading={loading}
       />
       <DropdownMenu>
@@ -68,20 +67,17 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem onClick={() => onCopy(data.id)}>
-            <Copy className="mr-2 h-4 w-4" />
-            Copy Id
+            <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
             onClick={() =>
               router.push(`/${params.storeId}/billboards/${data.id}`)
             }
           >
-            <Edit className="mr-2 h-4 w-4" />
-            Update
+            <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setOpen(true)}>
-            <Trash className="mr-2 h-4 w-4" />
-            Delete
+            <Trash className="mr-2 h-4 w-4" /> Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
