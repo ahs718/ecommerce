@@ -47,11 +47,11 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
   initialData,
   billboards,
 }) => {
-  const params = useParams();
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const params = useParams();
+  const router = useRouter();
 
   const title = initialData ? "Edit category" : "Create category";
   const description = initialData ? "Edit a category." : "Add a new category";

@@ -64,11 +64,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
   sizes,
   colors,
 }) => {
-  const params = useParams();
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const params = useParams();
+  const router = useRouter();
 
   const title = initialData ? "Edit product" : "Create product";
   const description = initialData ? "Edit a product." : "Add a new product";

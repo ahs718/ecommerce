@@ -36,11 +36,11 @@ interface SizeFormProps {
 }
 
 export const SizeForm: React.FC<SizeFormProps> = ({ initialData }) => {
-  const params = useParams();
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const params = useParams();
+  const router = useRouter();
 
   const title = initialData ? "Edit size" : "Create size";
   const description = initialData ? "Edit a size." : "Add a new size";

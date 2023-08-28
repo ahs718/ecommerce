@@ -23,10 +23,11 @@ interface CellActionProps {
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
-  const router = useRouter();
-  const params = useParams();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  const params = useParams();
 
   const onConfirm = async () => {
     try {

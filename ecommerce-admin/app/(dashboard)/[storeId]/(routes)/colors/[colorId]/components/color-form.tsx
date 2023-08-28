@@ -38,11 +38,11 @@ interface ColorFormProps {
 }
 
 export const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
-  const params = useParams();
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const params = useParams();
+  const router = useRouter();
 
   const title = initialData ? "Edit color" : "Create color";
   const description = initialData ? "Edit a color." : "Add a new color";

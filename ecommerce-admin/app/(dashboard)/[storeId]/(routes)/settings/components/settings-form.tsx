@@ -37,12 +37,12 @@ interface SettingsFormProps {
 }
 
 export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const params = useParams();
   const router = useRouter();
   const origin = useOrigin();
-
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),

@@ -39,11 +39,11 @@ interface BillboardFormProps {
 export const BillboardForm: React.FC<BillboardFormProps> = ({
   initialData,
 }) => {
-  const params = useParams();
-  const router = useRouter();
-
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const params = useParams();
+  const router = useRouter();
 
   const title = initialData ? "Edit billboard" : "Create billboard";
   const description = initialData ? "Edit a billboard." : "Add a new billboard";

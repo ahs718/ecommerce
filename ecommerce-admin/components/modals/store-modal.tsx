@@ -26,10 +26,9 @@ const formSchema = z.object({
 });
 
 export const StoreModal = () => {
+  const [loading, setLoading] = useState(false);
   const storeModal = useStoreModal();
   const router = useRouter();
-
-  const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
