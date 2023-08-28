@@ -8,6 +8,8 @@ View the admin dashboard website [here!](https://ecommerce-admin-ahs718.vercel.a
 
 ## [Admin Dashboard](https://ecommerce-admin-ahs718.vercel.app/)
 
+<img width="1440" alt="Screenshot 2023-08-27 at 10 43 35 PM" src="https://github.com/ahs718/ecommerce/assets/101739679/7fea3e4e-5dda-4d0a-89c4-4370bb71be1a">
+
 The ecommerce admin dashboard gives the user management access, as well as the ability to create/update/delete various properties:
 
 -   Stores, which hold all of the below.
@@ -24,6 +26,8 @@ Users also have access to view orders when users check out items from the fronte
 The ecommerce admin dashboard additionally includes the ability to toggle between light-mode and dark-mode.
 
 ## [Store](https://ecommerce-store-ahs718.vercel.app/)
+
+<img width="1440" alt="Screenshot 2023-08-27 at 10 43 57 PM" src="https://github.com/ahs718/ecommerce/assets/101739679/2c774ffd-9960-4f9f-ab97-707d74079586">
 
 The store section, displayed for customers, fetches the products from the database using the API key created through the admin dashboard. In the store section, users have the ability to:
 
