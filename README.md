@@ -2,7 +2,11 @@
 
 This repository holds the source for for both an ecommerce admin panel/dashboard along with a frontend ecommerce store website.
 
-## Admin Dashboard
+View the store website [here!](https://ecommerce-store-ahs718.vercel.app/)
+
+View the admin dashboard website [here!](https://ecommerce-admin-ahs718.vercel.app/)
+
+## [Admin Dashboard](https://ecommerce-admin-ahs718.vercel.app/)
 
 The ecommerce admin dashboard gives the user management access, as well as the ability to create/update/delete various properties:
 
@@ -19,7 +23,7 @@ Users also have access to view orders when users check out items from the fronte
 
 The ecommerce admin dashboard additionally includes the ability to toggle between light-mode and dark-mode.
 
-## Store
+## [Store](https://ecommerce-store-ahs718.vercel.app/)
 
 The store section, displayed for customers, fetches the products from the database using the API key created through the admin dashboard. In the store section, users have the ability to:
 
