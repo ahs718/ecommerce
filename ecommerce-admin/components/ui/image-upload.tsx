@@ -56,7 +56,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           </div>
         ))}
       </div>
-      <CldUploadWidget onUpload={onUpload} uploadPreset="twahawc4">
+      <CldUploadWidget
+        onUpload={onUpload}
+        uploadPreset="twahawc4"
+        options={{ folder: "ecommerce" }}
+      >
         {({ open }) => {
           const onClick = () => {
             open();
